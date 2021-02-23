@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hr.crm.workbench.dao.ActivityDao">
+
+
+
+    <select id="getTotalByCondition" resultType="int">
+
+        select count(*)
+
+        from tbl_activity
+
+
+        <where>
+
+            <if test="name!=null and name!=''">
+
+                name like '%' #{name} '%'
+
+            </if>
+
+            <if test="owner!=null and owner!=''">
+
+                and owner like '%' #{owner} '%'
+
+            </if>
+
+            <if test="startDate!=null and startDate!=''">
+
+                and startDate &gt; #{startDate}
+
+            </if>
+
+            <if test="endDate!=null and endDate!=''">
+
+                and endDate &lt; #{endDate}
+
+            </if>
+
+        </where>
+
+
+    </select>
+
+    <select id="getActivityListByCondition" resultType="Activity" statementType="STATEMENT" >
+
+        select *
+        from tbl_activity
+
+        limit ${skipCount},${pageSize}
+
+
+    </select>
+
+    <update id="UpdateEqual1"  statementType="STATEMENT" >
+        UPDATE tbl_activity SET equals_absolu = "true" where ${g_r}=${mag_r} ;
+    </update>
+
+    <update id="UpdateEqual2"  statementType="STATEMENT" >
+         UPDATE tbl_activity SET equals_absolu = "false" where ${g_r}!=${mag_r} ;
+    </update>
+
+    <update id="UpdateEqual3"  statementType="STATEMENT" >
+        UPDATE tbl_activity SET equals_absolu = "possible" where ${g_r} is null or ${mag_r} is null ;
+    </update>
+
+    <update id="UpdateEqual4"  statementType="STATEMENT" >
+        UPDATE tbl_activity SET equals_absolu = "undefined" where ${g_r} is null and ${mag_r} is null ;
+    </update>
+
+
+    <update id="UpdateEqualNearly1"  statementType="STATEMENT" >
+        UPDATE tbl_activity SET equals_nearly = "true" where ${g_r} &lt;= ${mag_r}+1 and  ${g_r} &gt;= ${mag_r}-1;
+    </update>
+
+    <update id="UpdateEqualNearly2"  statementType="STATEMENT" >
+         UPDATE tbl_activity SET equals_nearly = "false" where  ${g_r} &gt; ${mag_r}+1 or  ${g_r} &lt; ${mag_r}-1;
+    </update>
+
+    <update id="UpdateEqualNearly3"  statementType="STATEMENT" >
+        UPDATE tbl_activity SET equals_nearly = "possible" where ${g_r} is null or ${mag_r} is null ;
+    </update>
+
+    <update id="UpdateEqualNearly4"  statementType="STATEMENT" >
+        UPDATE tbl_activity SET equals_nearly = "undefined" where ${g_r} is null and ${mag_r} is null ;
+    </update>
+
+
+
+
+    <!--新建resultMap，其中的<id>为主键，-->
+    <resultMap id="userIdMap" type="com.hr.crm.workbench.domain.Temp" >
+        <id column="id" property="id"/>
+        <result column="mag_r" property="mag_r" />
+        <!-- association 中的property对应User类中新添加的Book类对象属性    -->
+        <association property="Happy_A" javaType="com.hr.crm.workbench.domain.Happy_A">
+            <result column="id" property="Happy_AId"  />
+            <result column="mag_r" property="Happy_Amag_r" />
+        </association>
+    </resultMap>
+
+    <!-- 根据id连接user表和book表,结果映射为上面新建的resultMap  -->
+    <select id="getjointureListByCondition" resultMap="userIdMap">
+    select   a.id,a.mag_r,h.mag_r
+    from ${g_r}  a
+    join ${mag_r}  h on a.mag_r=h.mag_r
+  </select>
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

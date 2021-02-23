@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>crm</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
+  <filter>
+    <filter-name>EncodingFilter</filter-name>
+    <filter-class>com.hr.crm.web.filter.EncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EncodingFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>com.hr.crm.web.filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+
+  <!--usercontroller-->
+  <servlet>
+    <servlet-name>UserController</servlet-name>
+    <servlet-class>com.hr.crm.settings.web.controller.UserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserController</servlet-name>
+    <url-pattern>/settings/user/login.do</url-pattern>
+  </servlet-mapping>
+
+  <!--activitycontroller-->
+  <servlet>
+    <servlet-name>ActivityController</servlet-name>
+    <servlet-class>com.hr.crm.workbench.web.controller.ActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ActivityController</servlet-name>
+    <url-pattern>/workbench/activity/getUserList.do</url-pattern>
+    <url-pattern>/workbench/activity/pageList.do</url-pattern>
+  </servlet-mapping>
+
+
+  <!--happy_Acontroller-->
+  <servlet>
+    <servlet-name>Happy_AController</servlet-name>
+    <servlet-class>com.hr.crm.workbench.web.controller.Happy_AController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Happy_AController</servlet-name>
+    <url-pattern>/workbench/Happy_A/getUserList.do</url-pattern>
+    <url-pattern>/workbench/Happy_A/pageList.do</url-pattern>
+  </servlet-mapping>
+
+  <!--Teedy_ccontroller-->
+  <servlet>
+    <servlet-name>Teedy_cController</servlet-name>
+    <servlet-class>com.hr.crm.workbench.web.controller.Teedy_cController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Teedy_cController</servlet-name>
+    <url-pattern>/workbench/Teedy_c/getUserList.do</url-pattern>
+    <url-pattern>/workbench/Teedy_c/pageList.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>joinController</servlet-name>
+    <servlet-class>com.hr.crm.workbench.web.controller.ActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>joinController</servlet-name>
+    <url-pattern>/workbench/jointure/pageList.do</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

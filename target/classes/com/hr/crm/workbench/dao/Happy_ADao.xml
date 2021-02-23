@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hr.crm.workbench.dao.Happy_ADao">
+
+
+
+    <select id="getTotalByCondition" resultType="int">
+
+        select count(*)
+
+        from tbl_happy_a
+
+
+        <where>
+
+            <if test="name!=null and name!=''">
+
+                name like '%' #{name} '%'
+
+            </if>
+
+            <if test="owner!=null and owner!=''">
+
+                and owner like '%' #{owner} '%'
+
+            </if>
+
+            <if test="startDate!=null and startDate!=''">
+
+                and startDate &gt; #{startDate}
+
+            </if>
+
+            <if test="endDate!=null and endDate!=''">
+
+                and endDate &lt; #{endDate}
+
+            </if>
+
+        </where>
+
+
+    </select>
+
+    <select id="getHappy_AListByCondition" resultType="Happy_A" statementType="STATEMENT" >
+
+        select *
+        from tbl_happy_a
+
+        limit ${skipCount},${pageSize}
+
+
+    </select>
+
+    <update id="UpdateEqual1"  statementType="STATEMENT" >
+        UPDATE tbl_happy_a SET equals_absolu = "true" where ${g_r}=${mag_r} ;
+    </update>
+
+    <update id="UpdateEqual2"  statementType="STATEMENT" >
+         UPDATE tbl_happy_a SET equals_absolu = "false" where ${g_r}!=${mag_r} ;
+    </update>
+
+    <update id="UpdateEqual3"  statementType="STATEMENT" >
+        UPDATE tbl_happy_a SET equals_absolu = "possible" where ${g_r} is null or ${mag_r} is null ;
+    </update>
+
+    <update id="UpdateEqual4"  statementType="STATEMENT" >
+        UPDATE tbl_happy_a SET equals_absolu = "undefined" where ${g_r} is null and ${mag_r} is null ;
+    </update>
+
+
+    <update id="UpdateEqualNearly1"  statementType="STATEMENT" >
+        UPDATE tbl_happy_a SET equals_nearly = "true" where ${g_r} &lt;= ${mag_r}+1 and  ${g_r} &gt;= ${mag_r}-1;
+    </update>
+
+    <update id="UpdateEqualNearly2"  statementType="STATEMENT" >
+         UPDATE tbl_happy_a SET equals_nearly = "false" where  ${g_r} &gt; ${mag_r}+1 or  ${g_r} &lt; ${mag_r}-1;
+    </update>
+
+    <update id="UpdateEqualNearly3"  statementType="STATEMENT" >
+        UPDATE tbl_happy_a SET equals_nearly = "possible" where ${g_r} is null or ${mag_r} is null ;
+    </update>
+
+    <update id="UpdateEqualNearly4"  statementType="STATEMENT" >
+        UPDATE tbl_happy_a SET equals_nearly = "undefined" where ${g_r} is null and ${mag_r} is null ;
+    </update>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
